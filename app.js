@@ -18,6 +18,9 @@ require('./util/db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/UserRoutes');
+var studentRouter = require('./routes/studentRoutes')
+var classRouter = require('./routes/classRoutes');
+var subjectController = require('./routes/subjectRoutes');
 
 var app = express();
 
@@ -29,6 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/student',studentRouter);
+app.use('/classes',classRouter);
+app.use('/subjects',subjectController);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

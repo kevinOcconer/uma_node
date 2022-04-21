@@ -30,4 +30,7 @@ router.put('/:id', UserController.update);
  */
 router.delete('/:id', UserController.remove);
 
+
+router.get('/student/:id', UserController.getStudent)
+
 module.exports = router;

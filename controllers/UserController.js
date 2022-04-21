@@ -1,4 +1,5 @@
 var UserModel = require('../models/UserModel.js');
+var studentModel = require('../models/studentModel');
 var bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
@@ -44,6 +45,24 @@ module.exports = {
             return res.json(User);
         });
     },
+
+    getStudent: function (req, res) {
+      var id = req.params.id;
+      studentModel.findOne({userid: id}, function (err, User) {
+          if (err) {
+              return res.status(500).json({
+                  message: 'Error when getting student.',
+                  error: err
+              });
+          }
+          if (!User) {
+              return res.status(404).json({
+                  message: 'No such User'
+              });
+          }
+          return res.json(User);
+      });
+  },
 
     /**
      * UserController.create()
