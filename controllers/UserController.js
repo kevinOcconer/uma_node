@@ -67,7 +67,7 @@ module.exports = {
 
   getProfessor: function (req, res) {
     var id = req.params.id;
-    professorModel.findOne({userid: id}, function (err, User) {
+    professorModel.findOne({userid: id}).populate({path:'classes',populate:{path:"subjects"}}).exec(function (err, User) {
         if (err) {
             return res.status(500).json({
                 message: 'Error when getting student.',
