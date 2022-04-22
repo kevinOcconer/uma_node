@@ -11,7 +11,7 @@ module.exports = {
      * studentController.list()
      */
     list: function (req, res) {
-        StudentModel.find(function (err, students) {
+        StudentModel.find().populate('class').exec(function (err, students) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting student.',
@@ -29,7 +29,7 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
 
-        StudentModel.findOne({_id: id}, function (err, student) {
+        StudentModel.findOne({_id: id}).populate('class').exec(function (err, student) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting student.',
@@ -52,7 +52,8 @@ module.exports = {
      */
     create: function (req, res) {
         var student = new StudentModel({
-			userid : req.body.userid
+			userid : req.body.userid,
+            class : req.body.class
         });
 
         student.save(function (err, student) {
@@ -88,7 +89,7 @@ module.exports = {
             }
 
             student.userid = req.body.userid ? req.body.userid : student.userid;
-			student.classes = req.body.classes ? req.body.classes : student.classes;
+			student.class = req.body.class ? req.body.class : student.class;
 			
             student.save(function (err, student) {
                 if (err) {
