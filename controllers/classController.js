@@ -11,7 +11,7 @@ module.exports = {
      * classController.list()
      */
     list: function (req, res) {
-        ClassModel.find(function (err, classs) {
+        ClassModel.find().populate('subjects').exec(function (err, classs) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting class.',

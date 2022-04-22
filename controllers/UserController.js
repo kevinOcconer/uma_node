@@ -112,7 +112,14 @@ module.exports = {
               if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                   const token = jwt.sign({ id: userInfo._id }, "mysecret", {});
                   userInfo['password']= '';
-                  res.send({ status: true, message: "You are  successfully logged in ",user : userInfo, token: token });
+                  if(userInfo.type == 0)
+                  studentModel.findOne({userid:userInfo._id}).exec(function(errr, student){
+                      res.send({ status: true, message: "You are  successfully logged in ",student:student,user : userInfo, token: token });
+                  })
+                  else
+                  professorModel.findOne({userid:userInfo._id}).populate({path:'classes',populate:{path:"subjects"}}).exec(function(errr, student){
+                    res.send({ status: true, message: "You are  successfully logged in ",professor:student,user : userInfo, token: token });
+                })
               } else {
                 res.send({ status: false, message: "Invalid password if you forgot password please refer to admin" });
               }

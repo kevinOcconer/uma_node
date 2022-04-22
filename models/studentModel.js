@@ -6,10 +6,10 @@ var studentSchema = new Schema({
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'user'
 	},
-	'classes' : [{
+	'class' : {
 		type: Schema.Types.ObjectId,
 		ref: 'class'
-   }]
+   }
 });
 
 module.exports = mongoose.model('student', studentSchema);
