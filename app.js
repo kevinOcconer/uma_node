@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const multer = require('multer');
+
 //starting mongo db
 require('./util/db');
 
@@ -24,6 +26,7 @@ var subjectController = require('./routes/subjectRoutes');
 var professorRouter = require('./routes/professorRoutes');
 
 
+
 var app = express();
 
 app.use(logger('dev'));
@@ -32,6 +35,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, '/src/my-images');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname);
+  }
+});
+const upload = multer({dest: 'uploads/'});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/student',studentRouter);
@@ -39,6 +52,16 @@ app.use('/classes',classRouter);
 app.use('/subjects',subjectController);
 app.use('/prof',professorRouter);
 
+app.post('/image', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({ status: false, message: "No file received" });
+  } else {
+    console.log('file received');
+    return res.send({
+      success: true,message:"Upload success"})
+  }
+});
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
