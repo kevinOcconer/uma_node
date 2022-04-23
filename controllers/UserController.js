@@ -70,9 +70,10 @@ module.exports = {
     var id = req.params.id;
     professorModel.findOne({userid: id}).populate('userid').populate({path:'classes',populate:{path:"subjects"}}).exec(function (err, User) {
         if (err) {
+            console.log(err)
             return res.status(500).json({
                 message: 'Error when getting professor.',
-                error: err
+                error: err.message
             });
         }
         if (!User) {
