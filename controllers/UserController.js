@@ -49,8 +49,9 @@ module.exports = {
 
     getStudent: function (req, res) {
       var id = req.params.id;
-      studentModel.findOne({userid: id}).populate({path:'class',populate:{path:"subjects"}}).exec( function (err, User) {
+      studentModel.findOne({userid: id}).populate('userid').populate({path:'class',populate:{path:"subjects"}}).exec( function (err, User) {
           if (err) {
+              console.log(err);
               return res.status(500).json({
                   message: 'Error when getting student.',
                   error: err
@@ -67,7 +68,7 @@ module.exports = {
 
   getProfessor: function (req, res) {
     var id = req.params.id;
-    professorModel.findOne({userid: id}).populate({path:'classes',populate:{path:"subjects"}}).exec(function (err, User) {
+    professorModel.findOne({userid: id}).populate({path:'classes userid',populate:{path:"subjects"}}).exec(function (err, User) {
         if (err) {
             return res.status(500).json({
                 message: 'Error when getting student.',
@@ -113,7 +114,7 @@ module.exports = {
                   const token = jwt.sign({ id: userInfo._id }, "mysecret", {});
                   userInfo['password']= '';
                   if(userInfo.type == 0)
-                  studentModel.findOne({userid:userInfo._id}).populate({path:'class',populate:{path:"subjects"}}).exec(function(errr, student){
+                  studentModel.findOne({userid:userInfo._id}).populate('userid').populate({path:'class',populate:{path:"subjects"}}).exec(function(errr, student){
                       res.send({ status: true, message: "You are  successfully logged in ",student:student,user : userInfo, token: token });
                   })
                   else

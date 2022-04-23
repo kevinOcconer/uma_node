@@ -4,7 +4,7 @@ var Schema   = mongoose.Schema;
 var studentSchema = new Schema({
 	'userid' : {
 	 	type: Schema.Types.ObjectId,
-	 	ref: 'user'
+	 	ref: 'users'
 	},
 	'class' : {
 		type: Schema.Types.ObjectId,
