@@ -58,8 +58,10 @@ app.post('/image', upload.single('file'), (req, res) => {
     return res.send({ status: false, message: "No file received" });
   } else {
     console.log('file received');
+    const host = req.host;
+const filePath = req.protocol + "://" + host + '/' + req.file.path;
     return res.send({
-      success: true,message:"Upload success"})
+      success: true,message:"Upload success", path :filePath})
   }
 });
 /// catch 404 and forwarding to error handler
