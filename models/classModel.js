@@ -11,6 +11,6 @@ var classSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'student'
    }]
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model('class', classSchema);

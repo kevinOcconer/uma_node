@@ -20,6 +20,6 @@ var AttendanceSchema = new Schema({
 	 	ref: 'professor'
 	},
 	'status' : String
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model('Attendance', AttendanceSchema);
