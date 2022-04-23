@@ -24,6 +24,7 @@ var studentRouter = require('./routes/studentRoutes')
 var classRouter = require('./routes/classRoutes');
 var subjectController = require('./routes/subjectRoutes');
 var professorRouter = require('./routes/professorRoutes');
+var AttendanceRouter =  require('./routes/AttendanceRoutes');
 
 
 
@@ -51,6 +52,8 @@ app.use('/student',studentRouter);
 app.use('/classes',classRouter);
 app.use('/subjects',subjectController);
 app.use('/prof',professorRouter);
+app.use('/attendance',AttendanceRouter);
+
 
 app.post('/image', upload.single('file'), (req, res) => {
   if (!req.file) {

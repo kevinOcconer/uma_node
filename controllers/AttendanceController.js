@@ -52,23 +52,24 @@ module.exports = {
      */
     create: function (req, res) {
         var Attendance = new AttendanceModel({
-			date : req.body.date,
 			classid : req.body.classid,
 			subjectid : req.body.subjectid,
 			studentId : req.body.studentId,
-			professorId : req.body.professorId,
+			barcodegeneratedat : req.body.barcodegeneratedat,
+            expiry_time:req.body.expiry_time,
 			status : req.body.status
         });
 
         Attendance.save(function (err, Attendance) {
             if (err) {
                 return res.status(500).json({
+                    status:false,
                     message: 'Error when creating Attendance',
                     error: err
                 });
             }
 
-            return res.status(201).json(Attendance);
+            return res.status(201).json({status:true, message:"Attendance marked.."});
         });
     },
 
@@ -92,7 +93,6 @@ module.exports = {
                 });
             }
 
-            Attendance.date = req.body.date ? req.body.date : Attendance.date;
 			Attendance.classid = req.body.classid ? req.body.classid : Attendance.classid;
 			Attendance.subjectid = req.body.subjectid ? req.body.subjectid : Attendance.subjectid;
 			Attendance.studentId = req.body.studentId ? req.body.studentId : Attendance.studentId;
