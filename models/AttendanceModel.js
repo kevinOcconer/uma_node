@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var AttendanceSchema = new Schema({
+	'date':String,
 	'classid' : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'class'

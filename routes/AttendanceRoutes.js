@@ -27,4 +27,8 @@ router.put('/:id', AttendanceController.update);
  */
 router.delete('/:id', AttendanceController.remove);
 
+router.post('/fill', AttendanceController.filldata)
+
+router.post('/update',AttendanceController.updateAttendance);
+
 module.exports = router;
