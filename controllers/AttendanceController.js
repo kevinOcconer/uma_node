@@ -221,7 +221,7 @@ module.exports = {
     },
     filter:function (req, res) {
         console.log(req.body)
-        AttendanceModel.find().populate({path:'studentId',populate:{path:"userid"}}).exec(req.body, function (err, Attendance) {
+        AttendanceModel.find(req.body).populate({path:'studentId',populate:{path:"userid"}}).exec(req.body, function (err, Attendance) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting Attendance.',
