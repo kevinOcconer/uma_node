@@ -220,6 +220,7 @@ module.exports = {
         });
     },
     filter:function (req, res) {
+        console.log(req.body)
         AttendanceModel.find(req.body, function (err, Attendance) {
             if (err) {
                 return res.status(500).json({
