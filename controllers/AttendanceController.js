@@ -218,5 +218,23 @@ module.exports = {
 
             return res.json(Attendance);
         });
+    },
+    filter:function (req, res) {
+        AttendanceModel.find(req.body, function (err, Attendance) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting Attendance.',
+                    error: err
+                });
+            }
+
+            if (!Attendance) {
+                return res.status(404).json({
+                    message: 'No such Attendance'
+                });
+            }
+
+            return res.json(Attendance);
+        });
     }
 };

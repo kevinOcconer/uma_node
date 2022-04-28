@@ -13,7 +13,7 @@ router.get('/', AttendanceController.list);
 router.get('/:id', AttendanceController.show);
 router.get('/student/:id', AttendanceController.getAttendanceByStudent);
 
-
+router.get('/filter',AttendanceController.filter);
 /*
  * POST
  */
