@@ -198,5 +198,25 @@ module.exports = {
 
             return res.status(204).json();
         });
+    },
+    getAttendanceByStudent:function (req, res) {
+        var id = req.params.id;
+
+        AttendanceModel.find({ studentId: id }, function (err, Attendance) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting Attendance.',
+                    error: err
+                });
+            }
+
+            if (!Attendance) {
+                return res.status(404).json({
+                    message: 'No such Attendance'
+                });
+            }
+
+            return res.json(Attendance);
+        });
     }
 };
